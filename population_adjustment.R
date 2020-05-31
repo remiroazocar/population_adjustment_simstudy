@@ -95,9 +95,9 @@ stc.wrapper <- function(data.AC, data.BC, pvs, ems) {
   colnames(BC.sim) <- names.col
   BC.sim$trt <- NA
   # treatment assignment keeps A vs. C allocation ratio
-  N_A <- floor(S*allocation) # number of patients under A in AC
+  N_A <- floor(S*allocation) # number of patients under A in simulated dataset
   BC.sim$trt[1:N_A] <- "A" 
-  BC.sim$trt[(N_A+1):S] <- "C" # under C
+  BC.sim$trt[(N_A+1):S] <- "C" # under C in simulated
   BC.sim.trtA <- BC.sim[BC.sim$trt=="A",]
   BC.sim.trtC <- BC.sim[BC.sim$trt=="C",]
   # average linear predictions for each simulated patient under A and C
