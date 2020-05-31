@@ -57,7 +57,7 @@ gen.data <- function(no.chars, no.ems, N_AC, N_BC, b_trt_A, b_trt_B,
   # AC follow-up times and event indicators
   time = pmin(Tlat, C)
   status = as.numeric(Tlat<=C)
-  trt <- c(rep("A", N_AC_A), rep("C", N_AC_C)) # trial assignment
+  trt <- c(rep("A", N_AC_A), rep("C", N_AC_C)) # treatment assignment
   IPD.AC <- as.data.frame(cbind(trt, X_AC, time, status))
   X_BC = as.data.frame(rbind(X_BC_B, X_BC_C))
   colnames(X_BC) <- col.names
@@ -69,7 +69,7 @@ gen.data <- function(no.chars, no.ems, N_AC, N_BC, b_trt_A, b_trt_B,
   # BC follow-up times and event indicators
   time = pmin(Tlat)
   status = as.numeric(Tlat<=C)
-  trt <- c(rep("B", N_BC_B), rep("C", N_BC_C)) # trial assignment
+  trt <- c(rep("B", N_BC_B), rep("C", N_BC_C)) # treatment assignment
   IPD.BC <- as.data.frame(cbind(trt, X_BC, time, status))
   IPD.BC$trt <- factor(IPD.BC$trt, levels=c("C","B")) 
   # aggregate the data for the BC trial 

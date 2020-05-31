@@ -5,7 +5,7 @@ rm(list=ls())
 # setwd("C:/Users/Antonio/Desktop/population_adjustment_simstudy") 
 
 replicates <- 1000 # Monte Carlo replicates
-allocation <- 1/2 # proportion of patients in active treatment vs. placebo (1:1 allocation ratio)
+allocation <- 1/2 # proportion of patients in active treatment (1:1 allocation ratio, vs. placebo)
 
 no.chars <- 4 # number of baseline characteristics, these are prognostic variables
 no.ems <- 2 # number of effect modifiers (subset of baseline characteristics)

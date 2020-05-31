@@ -7,7 +7,6 @@ load(file="survival_settings.RData") # load simulation settings
 source('functions.R') # load MAIC functions
 
 set.seed(444)
-N.samples <- pc$N_AC # Number of patients simulated per PAIC imputation (size of imputed trial)
 scenarios <- nrow(pc) # number of simulation scenarios
 
 # for data manipulation 
@@ -39,9 +38,6 @@ for (i in 1:scenarios) {
 
 ### Standard indirect treatment comparison (Bucher method)
 bucher.wrapper <- function(data.AC, data.BC) {
-  N_AC <- nrow(data.AC) # number of patients enrolled in AC trial
-  N_AC_A <- floor(N_AC*allocation) # number of patients under A in AC
-  N_AC_C <- N_AC - N_AC_A # number of patients under C in AC
   data.AC$trt <- factor(data.AC$trt, levels=c("C","A"))
   d.AC.bucher <- summary(coxph(Surv(time, status)~trt, data=data.AC))$coef[1]
   var.d.AC.bucher <- vcov(coxph(Surv(time, status)~trt, data=data.AC))[[1]]
