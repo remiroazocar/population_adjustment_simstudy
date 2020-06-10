@@ -51,7 +51,7 @@ gen.data <- function(no.chars, no.ems, N_AC, N_BC, b_trt_A, b_trt_B,
   colnames(X_AC) <- col.names
   betaX_AC = c(betaX_AC_A, betaX_AC_C)
   U = runif(n=N_AC)
-  # Generate AC Weibull-Cox-distributed latent event times according to Bender et al.
+  # Generate AC Weibull-Cox-distributed latent event times according to Bender et al. (2005)
   Tlat = -log(U)/(weib_inv_scale*exp(betaX_AC))^(1/weib_shape) 
   C = rexp(n=N_AC, rate=cens_rate) # AC censoring times
   # AC follow-up times and event indicators

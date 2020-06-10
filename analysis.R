@@ -153,7 +153,6 @@ max.variance <- 5
 scenarios.df <- data.frame()
 
 for (i in 1:scenarios) {
-  collected.ates <- NULL
   file.id <- paste0("N_AC", pc$N_AC[i], "b_X", round(pc$b_X[i], digits=2), 
                     "b_EM", round(pc$b_EM[i], digits=2),
                     "prop_diff", pc$prop.diff[i], "corX", pc$corX[i])   
@@ -418,6 +417,7 @@ pd.other$b_X <- factor(pd.other$b_X,levels=c(0.40,0.69,1.11),labels=c("moderate"
 
 ### Nested loop plot for MSE
 pdf("Analysis/mse.pdf", width=18,height=15,pointsize=20)
+tiff("Analysis/mse.tiff", res=800, width=18, height=15, units='in')
 par(pty="m")
 plot(pd.other$maic.mse,
      type="n",
@@ -425,77 +425,81 @@ plot(pd.other$maic.mse,
      xlab="Scenario",
      ylab="Mean square error (MSE)",
      las=1, xaxt="n",
-     cex.axis=1.15, cex.lab=1.15)
+     cex.axis=1.5, cex.lab=1.5) #1.15
 lines(pd.other, col=c("#BBBBBB", "#CCCCCC", "#DDDDDD", "#EEEEEE"))
-lines(pd.other, which="r", ymin.refline=0.375, ymax.refline=0.5, cex.ref=0.9) 
+lines(pd.other, which="r", ymin.refline=0.375, ymax.refline=0.5, cex.ref=1.5) #0.9
 lines(pd.other$maic.mse, col="red", lty=2,type="s", lwd=1.5)
 lines(pd.other$stc.mse, col="green", lty=5, type="s", lwd=1.5)
 lines(pd.other$bucher.mse, col="blue", lty=4, type="s", lwd=1.5)
 legend(x=130, y=0.35,lwd=c(1.5,1.5,1.5),col=c("red","green","blue"), lty=c(2,5,4),
-       cex=1,bty="n",c("MAIC", "STC","Bucher"))
+       cex=1.5,bty="n",c("MAIC", "STC","Bucher"))
 dev.off()
 
 ### MAIN MANUSCRIPT PLOTS (THESE DO NOT INCLUDE STC-II) ###
 
 ### Nested loop plot for coverage
 pdf("Analysis/coverage.pdf", width=18,height=15,pointsize=20)
+tiff("Analysis/coverage.tiff", res=800, width=8.64, height=7.2, units='in')
 par(pty="m")
 plot(pd.other$maic.cov*100, type="n", ylim=c(20, 100), bty="n", xlab="Scenario",
      ylab="Coverage of 95% confidence intervals (%)", las=1, xaxt="n",
-     cex.axis=1.15, cex.lab=1.15)
+     cex.axis=1, cex.lab=1)
 abline(h=95, col="grey") # nominal 
 lines(pd.other, col=c("#BBBBBB", "#CCCCCC", "#DDDDDD", "#EEEEEE"))
 lines(pd.other, which="r", ymin.refline=20, ymax.refline=40, cex.ref=0.9)
-lines(pd.other$maic.cov*100, col="red", lty=2,type="s", lwd=1.5)    
-lines(pd.other$stc.cov*100, col="green", lty=5, type="s", lwd=1.5) 
-lines(pd.other$bucher.cov*100, col="blue", lty=4, type="s", lwd=1.5) 
+lines(pd.other$maic.cov*100, col="red", lty=2,type="s", lwd=1)    
+lines(pd.other$stc.cov*100, col="green", lty=5, type="s", lwd=1) 
+lines(pd.other$bucher.cov*100, col="blue", lty=4, type="s", lwd=1) 
 legend("left", lwd=c(1.5,1.5,1.5), col=c("red","green", "blue"), 
-       lty=c(2,5,4), cex=0.9, bty="n",c("MAIC", "STC", "Bucher"))
+       lty=c(2,5,4), cex=1, bty="n",c("MAIC", "STC", "Bucher"))
 dev.off()
 
 ### Nested loop plot for EmpSE 
 pdf("Analysis/EmpSE.pdf",width=18, height=15,pointsize=20)
+tiff("Analysis/EmpSE.tiff", res=800, width=18, height=15, units='in')
 par(pty="m")
 plot(pd.other$maic.empse, type="n",ylim=c(0, 0.4), bty="n", xlab="Scenario",
-     ylab="Empirical standard error (EmpSE)",las=1, xaxt="n",
-     cex.axis=1.15, cex.lab=1.15)
+     ylab="Empirical standard error (ESE)",las=1, xaxt="n",
+     cex.axis=1.5, cex.lab=1.5)
 lines(pd.other, col=c("#BBBBBB", "#CCCCCC", "#DDDDDD", "#EEEEEE"))
-lines(pd.other, which="r", ymin.refline=0.3, ymax.refline=0.4, cex.ref=0.9)
+lines(pd.other, which="r", ymin.refline=0.3, ymax.refline=0.4, cex.ref=1.5)
 lines(pd.other$maic.empse, col="red", lty=2,type="s",lwd=1.5)    
 lines(pd.other$stc.empse, col="green", lty=5, type="s", lwd=1.5)   
 lines(pd.other$bucher.empse, col="blue", lty=4, type="s", lwd=1.5) 
 legend("bottom", lwd=c(1.5,1.5,1.5), col=c("red","green","blue"), lty=c(2,5,4), 
-       cex=0.9, bty="n", c("MAIC", "STC", "Bucher"))
+       cex=1.5, bty="n", c("MAIC", "STC", "Bucher"))
 dev.off()
 
 ### Nested loop plot for variability ratio
 pdf("Analysis/variability_ratio.pdf", width=18,height=15, pointsize=20)
+tiff("Analysis/variability_ratio.tiff", res=800, width=18, height=15, units='in')
 par(pty="m")
 plot(pd.other$maic.vr, type="n", ylim=c(0.8,2.2), bty="n", xlab="Scenario", ylab="Variability ratio",
-     las=1, xaxt="n", cex.axis=1.15, cex.lab=1.15)
+     las=1, xaxt="n", cex.axis=1.5, cex.lab=1.5)
 abline(h=1, col="grey") # unbiased variance
 lines(pd.other, col=c("#BBBBBB", "#CCCCCC", "#DDDDDD", "#EEEEEE"))
-lines(pd.other, which="r", ymin.refline=1.85, ymax.refline=2.2, cex.ref=0.9)
+lines(pd.other, which="r", ymin.refline=1.85, ymax.refline=2.2, cex.ref=1.5)
 lines(pd.other$maic.vr, col="red", lty=2,type="s",lwd=1.5)    
 lines(pd.other$stc.vr, col="green", lty=5, type="s", lwd=1.5)   
 lines(pd.other$bucher.vr, col="blue", lty=4, type="s", lwd=1.5) 
 legend(x=77, y=1.29, lwd=c(1.5,1.5,1.5), col=c("red","green","blue"),lty=c(2,5,4), 
-       cex=0.9, bty="n", c("MAIC", "STC", "Bucher"))
+       cex=1.5, bty="n", c("MAIC", "STC", "Bucher"))
 dev.off()
  
 ### Nested loop plot for bias 
 pdf("Analysis/bias.pdf", width=18, height=15, pointsize=20)
+tiff("Analysis/bias.tiff", res=800, width=18, height=15, units='in')
 par(pty="m")
 plot(pd.bias$maic.bias, type="n", ylim=c(-0.75,0.75), bty="n", xlab="Scenario", ylab="Bias",
-     las=1, xaxt="n", cex.axis=1.15, cex.lab=1.15)
+     las=1, xaxt="n", cex.axis=1.5, cex.lab=1.5)
 abline(h=0, col="grey") # no bias
 lines(pd.bias, col=c("#BBBBBB", "#CCCCCC", "#DDDDDD", "#EEEEEE")) # add vertical lines
-lines(pd.bias, which="r",ymin.refline=0.375, ymax.refline=0.75, cex.ref=0.9) # add reference lines
+lines(pd.bias, which="r",ymin.refline=0.375, ymax.refline=0.75, cex.ref=1.5) # add reference lines
 lines(pd.bias$maic.bias, col="red", lty=2,type="s", lwd=1.5) # performance measures 
 lines(pd.bias$stc.bias, col="green", lty=5, type="s", lwd=1.5)
 lines(pd.bias$bucher.bias, col="blue", lty=4, type="s", lwd=1.5)
 legend("bottom",lwd=c(1.5,1.5,1.5),col=c("red","green", "blue"),
-       lty=c(2,5,4),cex=1,bty="n", c("MAIC", "STC", "Bucher")) # legend
+       lty=c(2,5,4),cex=1.5,bty="n", c("MAIC", "STC", "Bucher")) # legend
 dev.off()
 
 #### SUPPLEMENTARY MATERIAL PLOTS (INCLUDE STC-II) ####
@@ -541,7 +545,7 @@ dev.off()
 pdf("Analysis/Supplementary_Material/EmpSE.pdf",width=18, height=15,pointsize=20)
 par(pty="m")
 plot(pd.other$maic.empse, type="n",ylim=c(0, 0.4), bty="n", xlab="Scenario",
-     ylab="Empirical standard error (EmpSE)",las=1, xaxt="n",
+     ylab="Empirical standard error (ESE)",las=1, xaxt="n",
      cex.axis=1.15, cex.lab=1.15)
 lines(pd.other, col=c("#BBBBBB", "#CCCCCC", "#DDDDDD", "#EEEEEE"))
 lines(pd.other, which="r", ymin.refline=0.3, ymax.refline=0.4, cex.ref=0.9)
