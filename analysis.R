@@ -415,8 +415,10 @@ pd.other$b_EM <- factor(pd.other$b_EM,levels=c(0.40,0.69,1.11),labels=c("moderat
 pd.other$b_X <- factor(pd.other$b_X,levels=c(0.40,0.69,1.11),labels=c("moderate","strong",
                                                                        "very strong"))
 
+### MAIN MANUSCRIPT PLOTS (THESE DO NOT INCLUDE STC-II) ###
+
 ### Nested loop plot for MSE
-pdf("Analysis/mse.pdf", width=18,height=15,pointsize=20)
+# pdf("Analysis/mse.pdf", width=18,height=15,pointsize=20)
 tiff("Analysis/mse.tiff", res=800, width=18, height=15, units='in')
 par(pty="m")
 plot(pd.other$maic.mse,
@@ -435,10 +437,8 @@ legend(x=130, y=0.35,lwd=c(1.5,1.5,1.5),col=c("red","green","blue"), lty=c(2,5,4
        cex=1.5,bty="n",c("MAIC", "STC","Bucher"))
 dev.off()
 
-### MAIN MANUSCRIPT PLOTS (THESE DO NOT INCLUDE STC-II) ###
-
 ### Nested loop plot for coverage
-pdf("Analysis/coverage.pdf", width=18,height=15,pointsize=20)
+# pdf("Analysis/coverage.pdf", width=18,height=15,pointsize=20)
 tiff("Analysis/coverage.tiff", res=800, width=8.64, height=7.2, units='in')
 par(pty="m")
 plot(pd.other$maic.cov*100, type="n", ylim=c(20, 100), bty="n", xlab="Scenario",
@@ -455,7 +455,7 @@ legend("left", lwd=c(1.5,1.5,1.5), col=c("red","green", "blue"),
 dev.off()
 
 ### Nested loop plot for EmpSE 
-pdf("Analysis/EmpSE.pdf",width=18, height=15,pointsize=20)
+# pdf("Analysis/EmpSE.pdf",width=18, height=15,pointsize=20)
 tiff("Analysis/EmpSE.tiff", res=800, width=18, height=15, units='in')
 par(pty="m")
 plot(pd.other$maic.empse, type="n",ylim=c(0, 0.4), bty="n", xlab="Scenario",
@@ -471,7 +471,7 @@ legend("bottom", lwd=c(1.5,1.5,1.5), col=c("red","green","blue"), lty=c(2,5,4),
 dev.off()
 
 ### Nested loop plot for variability ratio
-pdf("Analysis/variability_ratio.pdf", width=18,height=15, pointsize=20)
+# pdf("Analysis/variability_ratio.pdf", width=18,height=15, pointsize=20)
 tiff("Analysis/variability_ratio.tiff", res=800, width=18, height=15, units='in')
 par(pty="m")
 plot(pd.other$maic.vr, type="n", ylim=c(0.8,2.2), bty="n", xlab="Scenario", ylab="Variability ratio",
@@ -487,7 +487,7 @@ legend(x=77, y=1.29, lwd=c(1.5,1.5,1.5), col=c("red","green","blue"),lty=c(2,5,4
 dev.off()
  
 ### Nested loop plot for bias 
-pdf("Analysis/bias.pdf", width=18, height=15, pointsize=20)
+# pdf("Analysis/bias.pdf", width=18, height=15, pointsize=20)
 tiff("Analysis/bias.tiff", res=800, width=18, height=15, units='in')
 par(pty="m")
 plot(pd.bias$maic.bias, type="n", ylim=c(-0.75,0.75), bty="n", xlab="Scenario", ylab="Bias",
@@ -670,13 +670,13 @@ bucher.rolling.bias.1 <- cumsum(bucher.means.list[[1]])/(1:replicates)
 pdf("Analysis/Supplementary_material/rolling_bias_convergence.pdf", width=18, height=15, pointsize=20)
 
 plot(maic.rolling.bias.1, xlab="Simulation number", ylab="Rolling bias", col="red",
-     type="b",bty="l",ylim=c(-0.2,0.4), lwd=2, pch=17, cex.axis=1.15, cex.lab=1.15)
+     bty="l",ylim=c(-0.2,0.4), lwd=2, lty=1, cex.axis=1.15, cex.lab=1.15)
 abline(h=0, col="grey") # no bias
-lines(stc.rolling.bias.1, col="green", type="b", bty="l", lwd=2, pch=18)
-lines(stc.ii.rolling.bias.1 , col="pink", type="b", bty="l", lwd=2, pch=19)
-lines(bucher.rolling.bias.1, col="blue", type="b", bty="l", lwd=2, pch=12)
+lines(stc.rolling.bias.1, col="green", lwd=1, lty=2)
+lines(stc.ii.rolling.bias.1 , col="pink", lwd=1, lty=3)
+lines(bucher.rolling.bias.1, col="blue", lwd=1, lty=4)
 legend("topright", legend = c("MAIC", "STC", "STC-II", "Bucher"), 
-       col = c("red", "green", "pink" , "blue"), pch = c(17,18,19,12), bty = "n", 
+       col = c("red", "green", "pink" , "blue"), bty = "n", 
        pt.cex = 2, cex = 1.2, text.col = "black", horiz = F , inset = c(0.1, 0.1),
-       lwd=c(2,2,2,2))
+       lwd=c(1,1,1,1), lty=c(1,2,3,4))
 dev.off()
