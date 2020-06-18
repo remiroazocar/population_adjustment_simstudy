@@ -670,7 +670,7 @@ bucher.rolling.bias.1 <- cumsum(bucher.means.list[[1]])/(1:replicates)
 pdf("Analysis/Supplementary_material/rolling_bias_convergence.pdf", width=18, height=15, pointsize=20)
 
 plot(maic.rolling.bias.1, xlab="Simulation number", ylab="Rolling bias", col="red",
-     bty="l",ylim=c(-0.2,0.4), lwd=1, lty=1, cex.axis=1.15, cex.lab=1.15)
+     type="l",ylim=c(-0.2,0.4), lwd=1, lty=1, cex.axis=1.15, cex.lab=1.15)
 abline(h=0, col="grey") # no bias
 lines(stc.rolling.bias.1, col="green", lwd=1, lty=2)
 lines(stc.ii.rolling.bias.1 , col="pink", lwd=1, lty=3)
