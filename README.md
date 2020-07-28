@@ -19,9 +19,9 @@ In order to use this repository, the user must first download a copy to their lo
 
 In addition, the `functions.R` script contains user-defined MAIC functions, functions to evaluate the performance measures of interest and functions to present simulation results in a nested loop plot by Rücker and Schwarzer 2014.<sup>1</sup> The files `./Analysis/scenarios.csv` and `./Analysis/additional_scenarios.csv` present the parameter values or settings for each scenario and summarize the key performance measures/results associated with each (as presented in the paper and supplementary material). 
 
-The `Example` subdirectory features example `R` code implementing MAIC, STC and the Bucher method on a simulated example (as per Appendix F of the Supplementary Material). 
+The `./Example` subdirectory features example `R` code implementing MAIC, STC and the Bucher method on a simulated example (as per Appendix F of the Supplementary Material). 
 
-The data generation process takes about 5 hours and the indirect comparison methods take about 2 hours (given the large number of simulated datasets), using an Intel Core i7-8650 CPU (1.90 GHz) processor. The `doSNOW` package is used to parallelize the performance of the indirect comparison methods, distributing the tasks to different cores of the computer. 
+The data generation process takes about 5 hours and the indirect comparison methods take about 2 hours, using an Intel Core i7-8650 CPU (1.90 GHz) processor. The `doSNOW` package is used to parallelize the performance of the indirect comparison methods, distributing the tasks to different cores of the computer. 
 
 The code presented here was prepared in R studio using R version `3.6.3` in a Windows architecture, with 64-bit operating system. The following packages and version were used:
 
