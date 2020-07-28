@@ -11,13 +11,15 @@ no.chars <- 4 # number of baseline characteristics, these are prognostic variabl
 no.ems <- 2 # number of effect modifiers (subset of baseline characteristics)
 pvs <- 1:4 # indices of prognostic variables
 ems <- 1:2 # indices of effect modifiers 
-N_AC <- c(300,450,600) # number of subjects in the AC trial
+N_AC <- c(150,300,600) # number of subjects in the AC trial
 N_BC <- 600 # number of subjects in the BC trial 
 b_trt <- log(0.25) # baseline effect (log HR) of active treatment vs. common comparator
 b_X <- c(-log(0.67), -log(0.5), -log(0.33)) # effect of each prognostic variable
 b_EM <- c(-log(0.67), -log(0.5), -log(0.33)) # interaction effect of each effect modifier
 cens_prob <- 0.35 # censoring probability of time-to-event outcome
-propX_AC <- c(0.4,0.35,0.3) # proportion of each covariate in AC trial
+meanX_AC <- c(0.45,0.3,0.15) # mean of each normally-distributed covariate in AC trial
+meanX_BC <- 0.6 # mean of each normally-distributed covariate in BC
+sdX <- 0.2 # standard deviation of each covariate (same for AC and BC)
 corX <- c(0,0.35) # covariate correlation coefficient  
 
 # Weibull distribution parameters
@@ -25,11 +27,8 @@ weib_inv_scale <- 8.5
 weib_shape <- 1.3  
   
 # parameter combinations for each scenario
-param.combinations <- expand.grid(N_AC=N_AC, b_X=b_X, b_EM=b_EM, corX=corX, propX_AC=propX_AC)
+param.combinations <- expand.grid(N_AC=N_AC, b_X=b_X, b_EM=b_EM, corX=corX, meanX_AC=meanX_AC)
 pc <- param.combinations
-pc$propX_BC <- 1 - pc$propX_AC # proportion of each covariate in BC trial
-pc$prop.diff <- pc$propX_BC - pc$propX_AC # cross-trial difference in covariate proportions
-
 scenarios <- nrow(param.combinations) # number of scenarios
 
 # the rate parameter of the exponential distribution (from which censoring times are drawn from) 
