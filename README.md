@@ -19,17 +19,17 @@ In order to use this repository, the user must first download a copy to their lo
 
 In addition, the `functions.R` script contains user-defined MAIC functions, functions to evaluate the performance measures of interest and functions to present simulation results in a nested loop plot by Rücker and Schwarzer 2014.<sup>1</sup> The files `./Analysis/scenarios.csv` and `./Analysis/additional_scenarios.csv` present the parameter values or settings for each scenario and summarize the key performance measures/results associated with each (as presented in the paper and supplementary material). 
 
-The data generation process and the indirect comparison methods **will take a while**, given the large number of simulated datasets. The `doSNOW` package is used to parallelize the performance of the indirect comparison methods, distributing the tasks to different cores of the computer. 
+The `Example` subdirectory features example `R` code implementing MAIC, STC and the Bucher method on a simulated example (as per Appendix F of the Supplementary Material). 
+
+The data generation process takes about 5 hours and the indirect comparison methods take about 2 hours (given the large number of simulated datasets), using an Intel Core i7-8650 CPU (1.90 GHz) processor. The `doSNOW` package is used to parallelize the performance of the indirect comparison methods, distributing the tasks to different cores of the computer. 
 
 The code presented here was prepared in R studio using R version `3.6.3` in a Windows architecture, with 64-bit operating system. The following packages and version were used:
 
-* `bindata 0.9.19` to generate correlated binary covariates for simulated data
 * `doSNOW 1.0.18` used in combination with `foreach()` to start up local clusters that distribute parallel tasks to different cores
 * `dplyr 0.8.5` for data manipulation
 * `parallel 3.6.3` to detect the number of CPU cores
-* `simstudy 0.1.15` uses the `copula` package to draw correlated covariates from a Gaussian copula in PAIC
-* `survey 4.0`  to fit weighted Cox proportional hazards regression models, with the MAIC weights specified as sampling weights of a survey design
-* `survival 3.1.8` to fit the standard Cox regressions
+* `simstudy 0.1.15` draws correlated (or uncorrelated) covariates from a Gaussian copula in the data-generating process
+* `survival 3.1.8` to fit the standard (STC) and weighted (MAIC) Cox proportional hazards regressions
 * `tidyr 1.0.2` for data manipulation
 
 ## References
