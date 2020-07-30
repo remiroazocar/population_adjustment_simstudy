@@ -83,8 +83,8 @@ gen.data <- function(no.chars, no.ems, N_AC, N_BC, b_trt_A, b_trt_B,
   IPD.BC$trt <- factor(IPD.BC$trt, levels=c("C","B")) 
   # aggregate the data for the BC trial 
   ALD.BC <- as.data.frame(cbind(
-      # Trial proportion stats and summary outcomes (log HR and variance) for BC
-      summarise(IPD.BC, prop.X1=mean(X1), prop.X2=mean(X2), prop.X3=mean(X3), prop.X4=mean(X4),
+      # Trial mean covariate stats and summary outcomes (log HR and variance) for BC
+      summarise(IPD.BC, mean.X1=mean(X1), mean.X2=mean(X2), mean.X3=mean(X3), mean.X4=mean(X4),
                 logHR_B=summary(coxph(Surv(time, status)~trt, data = IPD.BC))$coef[1],
                 var_logHR_B=vcov(coxph(Surv(time, status)~trt, data = IPD.BC))[[1]],
                 HR_B=summary(coxph(Surv(time, status)~trt, data = IPD.BC))$coef[2])))    
