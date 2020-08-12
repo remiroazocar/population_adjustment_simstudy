@@ -17,7 +17,7 @@ In order to use this repository, the user must first download a copy to their lo
 | `population_adjustment.R` | Performs the indirect comparison methods on the simulated data (saving the resulting means and variances to the `"./Results/"` subdirectory) |
 |       `analysis.R`        | Processes the results of the simulation study and computes and graphs the relevant performance metrics (the analyses are saved to the `"./Analysis/"` subdirectory) |
 
-In addition, the `functions.R` script contains user-defined MAIC functions, functions to evaluate the performance measures of interest and functions to present simulation results in a nested loop plot by Rücker and Schwarzer 2014.<sup>1</sup> The files `./Analysis/scenarios.csv` and `./Analysis/additional_scenarios.csv` present the parameter values or settings for each scenario and summarize the key performance measures/results associated with each (as presented in the paper and supplementary material). 
+In addition, the `functions.R` script contains user-defined MAIC functions, functions to evaluate the performance measures of interest and functions to present simulation results in a nested loop plot by Rücker and Schwarzer 2014.<sup>1</sup> The file `./Analysis/scenarios.csv` and  presents the parameter values or settings for each scenario and summarizes the key performance measures/results associated with each, as presented in the paper. 
 
 The `./Example` subdirectory features example `R` code implementing MAIC, STC and the Bucher method on a simulated example (as per Appendix F of the Supplementary Material). 
 
