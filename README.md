@@ -1,4 +1,4 @@
-# Methods for population adjustment with limited access to individual patient data - a simulation study: code
+# Methods for population adjustment with limited access to individual patient data - a review and simulation study: code
 
 ### Antonio Remiro-Azócar, Anna Heath, Gianluca Baio
 ### *remiroantonio@gmail.com*
