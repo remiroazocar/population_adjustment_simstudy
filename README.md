@@ -4,7 +4,7 @@
 ### *remiroantonio@gmail.com*
 ### *2020*
 
-This repository contains the R code used for my paper [Methods for population adjustment with limited access to individual patient data: a simulation study][1], co-authored with [Prof. Gianluca Baio][2] and [Prof. Anna Heath][3]. 
+This repository contains the `R` code used for my paper [Methods for population adjustment with limited access to individual patient data: a simulation study][1], co-authored with [Prof. Gianluca Baio][2] and [Prof. Anna Heath][3]. 
 
 ## Utilizing the Scripts
 
@@ -23,7 +23,7 @@ The `./Example` subdirectory features example `R` code implementing MAIC, STC an
 
 The data generation process takes about 5 hours and the indirect comparison methods take about 2 hours, using an Intel Core i7-8650 CPU (1.90 GHz) processor. The `doSNOW` package is used to parallelize the performance of the indirect comparison methods, distributing the tasks to different cores of the computer. 
 
-The code presented here was prepared in R studio using R version `3.6.3` in a Windows architecture, with 64-bit operating system. The following packages and version were used:
+The code presented here was prepared in `RStudio` using `R` version `3.6.3` in a Windows architecture, with 64-bit operating system. The following packages and version were used:
 
 * `doSNOW 1.0.18` used in combination with `foreach()` to start up local clusters that distribute parallel tasks to different cores
 * `dplyr 0.8.5` for data manipulation
