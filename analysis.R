@@ -7,6 +7,9 @@ rm(list=ls())
 load(file="survival_settings.RData")
 source("functions.R") # load functions to compute performance measures and for plotting
 
+# TRUE VALUE OF TARGET ESTIMAND IS ZERO
+Delta.AB <- 0
+
 # container of means and variances for all replicates in each scenario  
 maic.means.list <- vector(mode="list", scenarios)
 maic.variances.list <- vector(mode="list", scenarios)
@@ -144,13 +147,13 @@ for (i in 1:scenarios) {
   ### MATCHING-ADJUSTED INDIRECT COMPARISON
   maic.means.list[[i]] <- means
   maic.variances.list[[i]] <- variances
-  maic.bias[i] <- bias(maic.means.list[[i]], b_trt-b_trt)  
+  maic.bias[i] <- bias(maic.means.list[[i]], Delta.AB)  
   maic.bias.mcse[i] <- bias.mcse(maic.means.list[[i]])
-  maic.mae[i] <- mae(maic.means.list[[i]], b_trt-b_trt)
-  maic.abs.err[[i]] <- maic.means.list[[i]] - (b_trt-b_trt)
+  maic.mae[i] <- mae(maic.means.list[[i]], Delta.AB)
+  maic.abs.err[[i]] <- maic.means.list[[i]] - (Delta.AB)
   maic.mae.mcse[i] <- mcse.estimate(maic.abs.err[[i]])
-  maic.mse[i] <- mse(maic.means.list[[i]], b_trt-b_trt) 
-  maic.mse.mcse[i] <- mse.mcse(maic.means.list[[i]], b_trt-b_trt) 
+  maic.mse[i] <- mse(maic.means.list[[i]], Delta.AB) 
+  maic.mse.mcse[i] <- mse.mcse(maic.means.list[[i]], Delta.AB) 
   maic.ate[i] <- mean(maic.means.list[[i]])
   maic.ate.mcse[i] <- mcse.estimate(maic.means.list[[i]])
   # construct confidence interval using normal distribution
@@ -161,14 +164,14 @@ for (i in 1:scenarios) {
   maic.lci.mcse[i] <- mcse.estimate(maic.lci[[i]])
   maic.uci.mean[i] <- mean(maic.uci[[i]])
   maic.uci.mcse[i] <- mcse.estimate(maic.uci[[i]])
-  maic.cov[i] <- coverage(maic.lci[[i]], maic.uci[[i]], b_trt-b_trt)
+  maic.cov[i] <- coverage(maic.lci[[i]], maic.uci[[i]], Delta.AB)
   maic.cov.mcse[i] <- coverage.mcse(maic.cov[i], length(maic.lci[[i]]))
   maic.empse[i] <- empse(maic.means.list[[i]])
   maic.empse.mcse[i] <- empse.mcse(maic.empse[i], length(maic.means.list[[i]]))
   maic.vr[i] <- var.ratio(maic.means.list[[i]], sqrt(maic.variances.list[[i]]))
   maic.vr.mcse[i] <- var.ratio.mcse(avg.se=mean(sqrt(maic.variances.list[[i]])), 
                                     emp.se=maic.empse[i],
-                                    var.avg.se=mcse.estimate(maic.variances.list[[i]])^2,
+                                    var.avg.se=mcse.estimate(sqrt(maic.variances.list[[i]]))^2,
                                     var.emp.se=maic.empse.mcse[i]^2)
   maic.std.bias[i] <- (maic.bias[i]*100)/maic.empse[i]
   load(paste0("Results/MAIC/aess_", file.id, ".RData"))
@@ -184,14 +187,14 @@ for (i in 1:scenarios) {
   variances <- variances[stc.converges]
   stc.means.list[[i]] <- means
   stc.variances.list[[i]] <- variances
-  stc.bias[i] <- bias(stc.means.list[[i]], b_trt-b_trt)  
+  stc.bias[i] <- bias(stc.means.list[[i]], Delta.AB)  
   stc.bias.mcse[i] <- bias.mcse(stc.means.list[[i]])
-  stc.mae[i] <- mae(stc.means.list[[i]], b_trt-b_trt)
+  stc.mae[i] <- mae(stc.means.list[[i]], Delta.AB)
   stc.mae.mcse[i] <- mcse.estimate(stc.means.list[[i]])
-  stc.abs.err[[i]] <- stc.means.list[[i]] - (b_trt-b_trt)
+  stc.abs.err[[i]] <- stc.means.list[[i]] - (Delta.AB)
   stc.mae.mcse[i] <- mcse.estimate(stc.abs.err[[i]])
-  stc.mse[i] <- mse(stc.means.list[[i]], b_trt-b_trt) 
-  stc.mse.mcse[i] <- mse.mcse(stc.means.list[[i]], b_trt-b_trt) 
+  stc.mse[i] <- mse(stc.means.list[[i]], Delta.AB) 
+  stc.mse.mcse[i] <- mse.mcse(stc.means.list[[i]], Delta.AB) 
   stc.ate[i] <- mean(stc.means.list[[i]]) 
   stc.ate.mcse[i] <- mcse.estimate(stc.means.list[[i]])
   stc.lci[[i]] <- stc.means.list[[i]] + qnorm(0.025)*sqrt(stc.variances.list[[i]])
@@ -201,14 +204,14 @@ for (i in 1:scenarios) {
   stc.lci.mcse[i] <- mcse.estimate(stc.lci[[i]])
   stc.uci.mean[i] <- mean(stc.uci[[i]])
   stc.uci.mcse[i] <- mcse.estimate(stc.uci[[i]])
-  stc.cov[i] <- coverage(stc.lci[[i]], stc.uci[[i]], b_trt-b_trt)
+  stc.cov[i] <- coverage(stc.lci[[i]], stc.uci[[i]], Delta.AB)
   stc.cov.mcse[i] <- coverage.mcse(stc.cov[i], length(stc.lci[[i]]))
   stc.empse[i] <- empse(stc.means.list[[i]])
   stc.empse.mcse[i] <- empse.mcse(stc.empse[i], length(stc.means.list[[i]]))
   stc.vr[i] <- var.ratio(stc.means.list[[i]], sqrt(stc.variances.list[[i]]))
   stc.vr.mcse[i] <- var.ratio.mcse(avg.se=mean(sqrt(stc.variances.list[[i]])), 
                                    emp.se=stc.empse[i],
-                                   var.avg.se=mcse.estimate(stc.variances.list[[i]])^2,
+                                   var.avg.se=mcse.estimate(sqrt(stc.variances.list[[i]]))^2,
                                    var.emp.se=stc.empse.mcse[i]^2)  
   stc.std.bias[i] <- (stc.bias[i]*100)/stc.empse[i]
   ### BUCHER METHOD (STANDARD INDIRECT COMPARISON)
@@ -216,13 +219,13 @@ for (i in 1:scenarios) {
   load(paste0("Results/Bucher/variances_", file.id, ".RData")) 
   bucher.means.list[[i]] <- means
   bucher.variances.list[[i]] <- variances
-  bucher.bias[i] <- bias(bucher.means.list[[i]], b_trt-b_trt)  
+  bucher.bias[i] <- bias(bucher.means.list[[i]], Delta.AB)  
   bucher.bias.mcse[i] <- bias.mcse(bucher.means.list[[i]])
-  bucher.mae[i] <- mae(bucher.means.list[[i]], b_trt-b_trt)
-  bucher.abs.err[[i]] <- bucher.means.list[[i]] - (b_trt-b_trt)
+  bucher.mae[i] <- mae(bucher.means.list[[i]], Delta.AB)
+  bucher.abs.err[[i]] <- bucher.means.list[[i]] - (Delta.AB)
   bucher.mae.mcse[i] <- mcse.estimate(bucher.abs.err[[i]])
-  bucher.mse[i] <- mse(bucher.means.list[[i]], b_trt-b_trt) 
-  bucher.mse.mcse[i] <- mse.mcse(bucher.means.list[[i]], b_trt-b_trt) 
+  bucher.mse[i] <- mse(bucher.means.list[[i]], Delta.AB) 
+  bucher.mse.mcse[i] <- mse.mcse(bucher.means.list[[i]], Delta.AB) 
   bucher.ate[i] <- mean(bucher.means.list[[i]]) 
   bucher.ate.mcse[i] <- mcse.estimate(bucher.means.list[[i]])
   bucher.lci[[i]] <- bucher.means.list[[i]] + qnorm(0.025)*sqrt(bucher.variances.list[[i]])
@@ -232,17 +235,17 @@ for (i in 1:scenarios) {
   bucher.lci.mcse[i] <- mcse.estimate(bucher.lci[[i]])
   bucher.uci.mean[i] <- mean(bucher.uci[[i]])
   bucher.uci.mcse[i] <- mcse.estimate(bucher.uci[[i]])
-  bucher.cov[i] <- coverage(bucher.lci[[i]], bucher.uci[[i]], b_trt-b_trt)
+  bucher.cov[i] <- coverage(bucher.lci[[i]], bucher.uci[[i]], Delta.AB)
   bucher.cov.mcse[i] <- coverage.mcse(bucher.cov[i], length(bucher.lci[[i]]))
   bucher.empse[i] <- empse(bucher.means.list[[i]])
   bucher.empse.mcse[i] <- empse.mcse(bucher.empse[i], replicates)
   bucher.vr[i] <- var.ratio(bucher.means.list[[i]], sqrt(bucher.variances.list[[i]]))
   bucher.vr.mcse[i] <- var.ratio.mcse(avg.se=mean(sqrt(bucher.variances.list[[i]])), 
                                       emp.se=bucher.empse[i],
-                                      var.avg.se=mcse.estimate(bucher.variances.list[[i]])^2,
+                                      var.avg.se=mcse.estimate(sqrt(bucher.variances.list[[i]]))^2,
                                       var.emp.se=bucher.empse.mcse[i]^2) 
   bucher.std.bias[i] <- (bucher.bias[i]*100)/bucher.empse[i]
-  truth <- b_trt-b_trt # true baseline A vs. B treatment effect
+  truth <- Delta.AB # true baseline A vs. B treatment effect
   maic.error.worse.than[i] <- sum(abs(bucher.means.list[[i]][maic.no.sep]-truth)<abs(maic.means.list[[i]]-truth))/sum(maic.no.sep)
   maic.error.worse.than.mcse[i] <- coverage.mcse(maic.error.worse.than[i], sum(maic.no.sep))
   stc.error.worse.than[i] <- sum(abs(bucher.means.list[[i]][stc.converges]-truth)<abs(stc.means.list[[i]]-truth))/sum(stc.converges)
