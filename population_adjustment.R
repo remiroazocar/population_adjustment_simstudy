@@ -22,6 +22,7 @@ if(!require(survival)) {install.packages("survival"); library(survival)}
 # load simulated patient-level (AC) and aggregate-level (BC) datasets for all scenarios
 IPD.AC.all <- vector(mode="list", scenarios)
 ALD.BC.all <- vector(mode="list", scenarios)
+
 for (i in 1:scenarios) {
   file.id <- paste0("N_AC", pc$N_AC[i], "b_X", round(pc$b_X[i], digits=2), 
                     "b_EM", round(pc$b_EM[i], digits=2),"meanX_AC", pc$meanX_AC[i], "corX", pc$corX[i]) 
@@ -71,7 +72,7 @@ stc.wrapper <- function(data.AC, data.BC, pvs, ems) {
                                                                     collapse="+"),
                                        "+",  paste0("trt*I(", colnames(AC.chars)[ems],
                                                     "-", deparse(substitute(data.BC)),
-                                                    "$mean.", colnames(AC.chars)[ems], ")",
+                                                    "$prop.", colnames(AC.chars)[ems], ")",
                                                     collapse="+"))), data=data.AC)
   d.AC.stc <- coef(stc.coxph)["trtA"]
   var.d.AC.stc <- vcov(stc.coxph)["trtA", "trtA"]
@@ -81,7 +82,7 @@ stc.wrapper <- function(data.AC, data.BC, pvs, ems) {
   var.d.AB.stc <- var.d.AC.stc + var.d.BC.stc # A vs. B variance
   list(d.AB.stc, var.d.AB.stc)  
 }  
-  
+
 # set up cluster for parallel computing
 num.cores <- detectCores()
 cluster <- makeCluster(num.cores, type="SOCK", outfile="")
