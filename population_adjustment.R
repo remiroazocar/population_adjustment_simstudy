@@ -72,7 +72,7 @@ stc.wrapper <- function(data.AC, data.BC, pvs, ems) {
                                                                     collapse="+"),
                                        "+",  paste0("trt*I(", colnames(AC.chars)[ems],
                                                     "-", deparse(substitute(data.BC)),
-                                                    "$prop.", colnames(AC.chars)[ems], ")",
+                                                    "$mean.", colnames(AC.chars)[ems], ")",
                                                     collapse="+"))), data=data.AC)
   d.AC.stc <- coef(stc.coxph)["trtA"]
   var.d.AC.stc <- vcov(stc.coxph)["trtA", "trtA"]
