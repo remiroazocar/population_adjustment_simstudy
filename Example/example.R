@@ -73,7 +73,7 @@ rm(list=ls())
 AC.IPD <- read.csv("AC_IPD.csv") # load AC patient-level data
 BC.ALD <- read.csv("BC_ALD.csv") # load BC aggregate-level data
 
-# simple univariate regression of outcome on treatment
+# simple regression of outcome on treatment
 outcome.fit <- coxph(Surv(time, status)~trt, data=AC.IPD)
 
 # fitted treatment coefficient is relative effect for A vs. C
