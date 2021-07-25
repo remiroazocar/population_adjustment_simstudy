@@ -76,7 +76,7 @@ gen.data <- function(no.chars, no.ems, N_AC, N_BC, b_trt_A, b_trt_B,
   Tlat = -log(U)/(weib_inv_scale*exp(betaX_BC))^(1/weib_shape) 
   C = rexp(n=N_BC, rate=cens_rate) # BC censoring times
   # BC follow-up times and event indicators
-  time = pmin(Tlat)
+  time = pmin(Tlat, C)
   status = as.numeric(Tlat<=C)
   trt <- c(rep("B", N_BC_B), rep("C", N_BC_C)) # treatment assignment
   IPD.BC <- as.data.frame(cbind(trt, X_BC, time, status))
