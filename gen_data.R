@@ -28,16 +28,16 @@ gen.data <- function(no.chars, no.ems, N_AC, N_BC, b_trt_A, b_trt_B,
   # simulate correlated (or uncorrelated) continuous covariates from a Gaussian copula
   # with normally-distributed marginals and the specified correlation structure  
   X_AC_A <- as.matrix(genCorGen(n=N_AC_A, nvar=no.chars, params1=as.numeric(rep(meanX_AC, no.chars)), 
-                                params2=as.numeric(rep(sdX, no.chars)), dist="normal", corstr="cs", 
+                                params2=as.numeric(rep(sdX^2, no.chars)), dist="normal", corstr="cs", 
                                 corMatrix=R, wide=TRUE)[,-1]) # patients under A in trial AC 
   X_AC_C <- as.matrix(genCorGen(n=N_AC_C, nvar=no.chars, params1=as.numeric(rep(meanX_AC, no.chars)), 
-                                params2=as.numeric(rep(sdX, no.chars)), dist="normal", corstr="cs", 
+                                params2=as.numeric(rep(sdX^2, no.chars)), dist="normal", corstr="cs", 
                                 corMatrix=R, wide=TRUE)[,-1]) # patients under C in trial AC 
   X_BC_B <- as.matrix(genCorGen(n=N_BC_B, nvar=no.chars, params1=as.numeric(rep(meanX_BC, no.chars)), 
-                                params2=as.numeric(rep(sdX, no.chars)), dist="normal", corstr="cs", 
+                                params2=as.numeric(rep(sdX^2, no.chars)), dist="normal", corstr="cs", 
                                 corMatrix=R, wide=TRUE)[,-1]) # patients under B in trial BC 
   X_BC_C <- as.matrix(genCorGen(n=N_BC_C, nvar=no.chars, params1=as.numeric(rep(meanX_BC, no.chars)), 
-                                params2=as.numeric(rep(sdX, no.chars)), dist="normal", corstr="cs", 
+                                params2=as.numeric(rep(sdX^2, no.chars)), dist="normal", corstr="cs", 
                                 corMatrix=R, wide=TRUE)[,-1]) # patients under C in trial BC 
   # set log hazards for each patient
   betaX_AC_A <- rep(b_trt_A, N_AC_A) # intercepts and treatment effects
@@ -76,7 +76,7 @@ gen.data <- function(no.chars, no.ems, N_AC, N_BC, b_trt_A, b_trt_B,
   Tlat = -log(U)/(weib_inv_scale*exp(betaX_BC))^(1/weib_shape) 
   C = rexp(n=N_BC, rate=cens_rate) # BC censoring times
   # BC follow-up times and event indicators
-  time = pmin(Tlat)
+  time = pmin(Tlat, C)
   status = as.numeric(Tlat<=C)
   trt <- c(rep("B", N_BC_B), rep("C", N_BC_C)) # treatment assignment
   IPD.BC <- as.data.frame(cbind(trt, X_BC, time, status))
