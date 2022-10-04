@@ -6,7 +6,7 @@
 ### *remiroantonio@gmail.com*
 ### *2020*
 
-This repository contains the `R` code used for my paper [Methods for population adjustment with limited access to individual patient data: a simulation study][1], co-authored with [Prof. Gianluca Baio][2] and [Prof. Anna Heath][3]. 
+This repository contains the `R` code used for my paper [Methods for population adjustment with limited access to individual patient data: A review and simulation study][1], co-authored with [Prof. Gianluca Baio][2] and [Prof. Anna Heath][3]. 
 
 ## Utilizing the Scripts
 
@@ -38,7 +38,7 @@ The code presented here was prepared in `RStudio` using `R` version `3.6.3` in a
 1. [**Presenting simulation results in a nested loop plot**][4]  Rücker, G., Schwarzer, G.; BMC Med Res Methodol 14, 129 (2014); 
 doi:10.1186/1471-2288-14-129
 
-[1]: https://arxiv.org/abs/2004.14800
+[1]: https://doi.org/10.1002/jrsm.1511
 [2]: http://www.statistica.it/gianluca/
 [3]: https://sites.google.com/site/annaheathstats/
 [4]: https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-14-12
