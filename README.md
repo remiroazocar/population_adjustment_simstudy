@@ -14,7 +14,7 @@ In order to use this repository, the user must first download a copy to their lo
 
 |          Script           | Explanation                                                  |
 | :-----------------------: | ------------------------------------------------------------ |
-|   `survival_settings.R`   | Specifies the settings of the simulation settings and saves them in `"./survival_settings.RData"` |
+|   `survival_settings.R`   | Specifies the settings of the simulation study and saves them in `"./survival_settings.RData"` |
 |       `gen_data.R`        | Loads the simulation settings and generates the data for the study (saving the data to the `"./Data/"` subdirectory) |
 | `population_adjustment.R` | Performs the indirect comparison methods on the simulated data (saving the resulting means and variances to the `"./Results/"` subdirectory) |
 |       `analysis.R`        | Processes the results of the simulation study and computes and graphs the relevant performance metrics (the analyses are saved to the `"./Analysis/"` subdirectory) |
